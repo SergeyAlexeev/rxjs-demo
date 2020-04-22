@@ -11,7 +11,7 @@
     "build-http": "webpack http/index.js -o dist/bundle-http.js"
   },
   "keywords": [],
-  "author": "alekseevsa <alekseevsa@tutu.tech>",
+  "author": "SergeyAlexeev",
   "license": "ISC",
   "dependencies": {
     "rxjs": "^6.5.4"
