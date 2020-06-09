@@ -16,7 +16,7 @@
     "build-async-subject": "webpack async_subject/index.js -o dist/bundle-async_subject.js"
   },
   "keywords": [],
-  "author": "alekseevsa <alekseevsa@tutu.tech>",
+  "author": "SergeyAlexeev",
   "license": "ISC",
   "dependencies": {
     "rxjs": "^6.5.4"
