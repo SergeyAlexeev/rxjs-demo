@@ -5,10 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build-events && npm run build-basic && npm run build-http",
+    "build": "npm run build-events && npm run build-basic && npm run build-http && npm run build-subjects",
+    "build-subjects": "npm run build-subject && npm run build-behavior-subject && npm run build-replay-subject && npm run build-async-subject",
     "build-events": "webpack events/index.js -o dist/bundle-events.js",
     "build-basic": "webpack basic/index.js -o dist/bundle-basic.js",
-    "build-http": "webpack http/index.js -o dist/bundle-http.js"
+    "build-http": "webpack http/index.js -o dist/bundle-http.js",
+    "build-subject": "webpack subject/index.js -o dist/bundle-subject.js",
+    "build-behavior-subject": "webpack behavior_subject/index.js -o dist/bundle-behavior_subject.js",
+    "build-replay-subject": "webpack replay_subject/index.js -o dist/bundle-replay_subject.js",
+    "build-async-subject": "webpack async_subject/index.js -o dist/bundle-async_subject.js"
   },
   "keywords": [],
   "author": "alekseevsa <alekseevsa@tutu.tech>",
