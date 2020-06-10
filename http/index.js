@@ -1,6 +1,7 @@
-import { fromEvent, from } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { fromEvent, from, Observable } from 'rxjs'; 
+import { switchMap, map } from 'rxjs/operators';
 
+const api = 'https://api.github.com/repos/ReactiveX/rxjs/contributors';
 const btn = document.getElementById('btn');
 const area = document.getElementById('area');
 const eventStream$ = fromEvent(btn, 'click');
@@ -13,27 +14,24 @@ const getProcessingStream = (users) => from(users).pipe(
   }))
 );
 
-const dataStream$ = from(
-  new Promise((resolve) => {
-    fetch(`https://api.github.com/repos/ReactiveX/rxjs/contributors`)
-      .then(response => response.json())
-      .then((data) => {
-        resolve(data);
-      })
-  })
-).pipe(
+const dataStream$ = new Observable((subscriber) => {
+  fetch(api)
+    .then(response => response.json())
+    .then((data) => {
+      subscriber.next(data);
+    });
+}).pipe(
   switchMap((users) => {
     return getProcessingStream(users);
   })
 );
 
+
 eventStream$.pipe(
-  switchMap((event) => {
+  switchMap((e) => {
     return dataStream$;
   })
-)
-.subscribe({
-  next: (user) => {
+).subscribe((user) => {
     const link = document.createElement('a');
     const avatar = document.createElement('img');
 
@@ -48,5 +46,4 @@ eventStream$.pipe(
 
     area.appendChild(link);
     area.appendChild(avatar);
-  }
 });

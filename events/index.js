@@ -1,23 +1,15 @@
 import { fromEvent } from 'rxjs';
-import { scan, throttleTime, filter, map } from 'rxjs/operators';
+import { map, throttleTime } from 'rxjs/operators';
 
-const button = document.getElementById('btn');
-const txt = document.getElementById('txt');
+const input = document.getElementById('input');
 
-const clickStream$ = fromEvent(button, 'click').pipe(
-  scan(count => count + 1, 0),
-  filter(count => count % 2 === 0),
+const stream$ = fromEvent(input, 'keydown').pipe(
+  throttleTime(1000),
+  map((e) => e.target.value)
 );
 
-const keyDownStream$ = fromEvent(txt, 'keydown').pipe(
-  throttleTime(200),
-  map(e => e.target.value)
-);
 
-clickStream$.subscribe((count) => {
-  console.log(`Click count - ${count}`);
+stream$.subscribe((value) => {
+  console.log(value);
 });
 
-keyDownStream$.subscribe((text) => {
-  console.log(`Text is - ${text}`);
-});
